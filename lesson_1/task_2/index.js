@@ -22,10 +22,10 @@ const rootElement = document.querySelector('#root');
 const elem = React.createElement(
     'div', { className: 'greeting' },
     React.createElement(
-        'h1', { className: 'greeting_title' }, 'Hello, world!'
+        'div', { className: 'greeting_title' }, 'Hello, world!'
     ),
     React.createElement(
-        'p', { className: 'greeting__text' }, 'I\'m learning React'
+        'div', { className: 'greeting__text' }, 'I\'m learning React'
     )
 
 );
