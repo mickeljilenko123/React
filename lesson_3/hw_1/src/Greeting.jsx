@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.scss";
-import moment from "moment";
+
 
 const Greeting = props => {
    const age = Math.floor((new Date() - new Date(props.birthDate)) / 1000 / 60 / 60 / 24 / 365.25);
