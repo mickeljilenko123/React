@@ -1,7 +1,9 @@
 import React from "react";
+import moment from "moment";
 
 
 const Profile = (props) => {
+  const date = moment(props.birthDate).format('DD MMM YY');
 
   return (
     <div className="profile">
