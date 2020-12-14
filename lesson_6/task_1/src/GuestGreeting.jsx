@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const GuestGreeting = () => {
     return <hi>Hi stranger. Please login 🚀</hi>
