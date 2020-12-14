@@ -2,7 +2,7 @@ import React from 'react';
 import './index.scss';
 
 const UserGreeting = () => {
-    return <hi>Hello, user 😎</hi>
+    return <h1>Hello, user 😎</h1>
 }
 
 export default UserGreeting;
