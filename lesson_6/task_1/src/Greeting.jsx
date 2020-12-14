@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import UserGreeting from './UserGreeting';
 import GuestGreeting from './GuestGreeting';
 
-const Greeting = (props) => {
-    if (props.isLoggedIn) {
-        return <UserGreeting />
-    }
-    return <GuestGreeting />
-}
+//деструктуризация параметров прямо в аргументах функции
+const Greeting = ({ isLoggedIn }) => isLoggedIn
+  ? (<UserGreeting />)
+  : (<GuestGreeting />)
+
 
 export default Greeting;
