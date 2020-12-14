@@ -1,6 +1,6 @@
   import React, { Component } from "react";
 import Greeting from "./Greeting";
-import LoginOut from "./LoginOut";
+import Logout from "./Logout";
 import Login from "./Login";
 
 
@@ -30,7 +30,7 @@ class Auth extends Component {
                 <Greeting isLoggedIn={this.state.isLoggedIn} />
                 <div>
                     {this.state.isLoggedIn ? (
-                        <Logout onLogout={this.handleLogOut} />
+                        <Logout onLogout={this.handleLogout} />
                     ) : (
                         <Login onLogin={this.handleLogIn} />
                     )}
