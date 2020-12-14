@@ -7,33 +7,45 @@ const BISQUE = "Bisque";
 class ColorPicker extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            colorText: '',
+        this.state = { 
+            colorText: '', 
         };
     }
-    setColor = (value) => {
+
+    showColorText = (value) => {
         this.setState({
-          colorText: value,
+            colorText: value,
         });
-      };
-    reset() {
+    }
+
+    reset = () => {
         this.setState({
-            colorText: this.state.colorText = '',
+            colorText: '',
         });
     }
 
     render() {
         return (
             <div>
-    <div className="picker__title">
-    {this.state.colorText}
-    </div>
-    <div>
-    <button className="picker__button picker__button_coral" onMouseEnter={() => this.setColor("Coral")} onMouseLeave={this.reset}></button>
-          <button className="picker__button picker__button_aqua" onMouseEnter={() => this.setColor("Aqua")} onMouseLeave={this.reset}></button>
-          <button className="picker__button picker__button_bisque" onMouseEnter={() => this.setColor("Bisque")} onMouseLeave={this.reset}></button>
-    </div>
-</div>
+                <div className="picker__title">{`${this.state.colorText}`}</div>
+                <div>
+                    <button
+                        className="picker__button picker__button_coral"
+                        onMouseOver={() => this.showColorText(CORAL)}
+                        onMouseOut={this.reset}
+                    ></button>
+                    <button
+                        className="picker__button picker__button_aqua"
+                        onMouseOver={() => this.showColorText(AQUA)}
+                        onMouseOut={this.reset}
+                    ></button>
+                    <button
+                        className="picker__button picker__button_bisque"
+                        onMouseOver={() => this.showColorText(BISQUE)}
+                        onMouseOut={this.reset}
+                    ></button>
+                </div>
+            </div>
         );
     }
 }
