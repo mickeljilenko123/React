@@ -1,7 +1,7 @@
 import React from 'react';
 import Transaction from './Transaction';
 
-const TransactionList = ({ transactions }) => {
+const TransactionsList = ({ transactions }) => {
 
   return (
     <ul className="transactions">
@@ -9,4 +9,4 @@ const TransactionList = ({ transactions }) => {
     </ul >);
 }
 
-export default TransactionList;
+export default TransactionsList;
