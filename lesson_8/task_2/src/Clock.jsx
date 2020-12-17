@@ -8,35 +8,33 @@ const getTimeWithOffset = offset => {
 }
 
 class Clock extends Component {
-    constructor(props) {
-        console.log(props)
-        console.log(Component)
-        super(props);
-        this.state = {
-            location: props.location,
-            offset: getTimeWithOffset(props.offset).toLocaleTimeString(),
-        };
+  constructor(props) {
+      super(props);
+      this.state = {
+          location: props.location,
+          offset: getTimeWithOffset(props.offset),
+      };
+  }
 
-        setInterval(() => {
-            this.setState({
-                offset: getTimeWithOffset(props.offset).toLocaleTimeString(),
-            });
-        }, 1000);
-    }
+  componentDidMount() {
+    this.interval = setInterval(() => {
+        this.setState({
+            offset: getTimeWithOffset(this.state.offset),
+        });
+    }, 1000);
+}
+
+  componentWillUnmount() {
+      clearInterval(this.interval)
+  }
 
   render() {
-    return (
-        <>
-      <div className="clock">
-        <div className="clock__location">
-          {this.state.location}
-        </div>
-        <div className="clock__time">
-          {this.state.offset}
-        </div>
-      </div>
-      </>
-    );
+      return (
+          <div className="clock">
+              <div className="clock__location">{this.state.location}</div>
+              <div className="clock__time">{this.state.offset}</div>
+          </div>
+      );
   }
 }
 
