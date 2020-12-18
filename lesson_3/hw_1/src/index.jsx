@@ -1,18 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.scss";
-import Greeting from './Greeting';
+import App from './App';
 
 
 const rootElement = document.querySelector('#root');
 
-const user = {
-    firstName: 'John',
-    lastName: 'Doe',
-    birthDate: new Date('2003-01-01T11:11:11.819Z')
-}
-
 ReactDOM.render(
-<Greeting user = {user}
+<App
 />, 
 rootElement);
