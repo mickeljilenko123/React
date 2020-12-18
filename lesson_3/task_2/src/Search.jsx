@@ -17,3 +17,5 @@ class Search extends Component {
   }
   
   export default Search
+
+// Данные попадают в свойства this.props
