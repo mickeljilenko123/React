@@ -9,7 +9,7 @@ const rootElement = document.querySelector('#root');
 const user = {
     firstName: 'John',
     lastName: 'Doe',
-    birthDate: '2001-01-01T11:11:11.819Z'
+    birthDate: new Date('2003-01-01T11:11:11.819Z')
 }
 
 ReactDOM.render(
