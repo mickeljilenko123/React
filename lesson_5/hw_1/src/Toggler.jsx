@@ -1,26 +1,21 @@
 import React, { Component } from "react";
 
 class Toggler extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
-            toggler: 'Off',
-        };
+            status: 'Off',
+        }
     }
     reset = () => {
-        this.setState(state => ({
-            toggler: !state.toggler,
-        }));
+        this.setState({
+            status: !this.state.status,
+        });
     }
-
-    render() {
-        return (
-            <button className = "toggler"
-            onClick={this.reset}
-            >
-                {this.state.toggler ? 'Off': 'On'}
-            </button>
-        )
-    }
+  render(){
+      return(
+          <button className= "toggler" onClick={this.reset}>{this.state.status ? 'Off': 'On'}</button>
+      )
+  }
 }
 export default Toggler;

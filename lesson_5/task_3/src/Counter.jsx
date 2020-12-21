@@ -6,7 +6,7 @@ class Counter extends Component {
         this.state = {
             counter: 0,
         };
-
+    // Что-бы не потерять контекст можем просто за байндить
         this.decrement = this.decrement.bind(this);
     }
 
@@ -15,7 +15,7 @@ class Counter extends Component {
             counter: this.state.counter - 1,
         });
     }
-
+    // Это второй способ через стрелочную функцию
     increment = () => {
         this.setState({
             counter: this.state.counter + 1,
@@ -44,3 +44,5 @@ class Counter extends Component {
 }
 
 export default Counter;
+
+//3-й способ onClick={() => this.reset()}

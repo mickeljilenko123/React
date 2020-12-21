@@ -8,3 +8,12 @@ const buildObject = (keys, values) => {
     return arr2;
 }
 console.log(buildObject(keysList, valuesList));
+
+
+const getTimeWithOffset = offset => {
+    const currentTime = new Date();
+    const utcOffset = currentTime.getTimezoneOffset() / 60;
+    return new Date(currentTime.setHours(currentTime.getHours() + offset + utcOffset));
+}
+
+console.log(getTimeWithOffset(2).toLocaleTimeString());

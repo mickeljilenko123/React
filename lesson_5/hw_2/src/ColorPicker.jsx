@@ -11,43 +11,39 @@ class ColorPicker extends Component {
             colorText: '', 
         };
     }
-
-    showColorText = (value) => {
+    showText = value => {
         this.setState({
             colorText: value,
-        });
+        })
     }
-
     reset = () => {
         this.setState({
             colorText: '',
-        });
+        })
     }
-
-    render() {
-        return (
-            <div>
-                <div className="picker__title">{`${this.state.colorText}`}</div>
-                <div>
-                    <button
-                        className="picker__button picker__button_coral"
-                        onMouseOver={() => this.showColorText(CORAL)}
-                        onMouseOut={this.reset}
-                    ></button>
-                    <button
-                        className="picker__button picker__button_aqua"
-                        onMouseOver={() => this.showColorText(AQUA)}
-                        onMouseOut={this.reset}
-                    ></button>
-                    <button
-                        className="picker__button picker__button_bisque"
-                        onMouseOver={() => this.showColorText(BISQUE)}
-                        onMouseOut={this.reset}
-                    ></button>
-                </div>
-            </div>
-        );
-    }
+   render() {
+       return(
+        <div>
+        <div className="picker__title">
+          {this.state.colorText}
+        </div>
+        <div>
+          <button className="picker__button picker__button_coral"
+          onMouseOver={() => this.showColorText(CORAL)}
+          onMouseOut={this.reset}
+          ></button>
+          <button className="picker__button picker__button_aqua"
+          onMouseOver={() => this.showColorText(AQUA)}
+          onMouseOut={this.reset}
+          ></button>
+          <button className="picker__button picker__button_bisque"
+          onMouseOver={() => this.showColorText(BISQUE)}
+          onMouseOut={this.reset}
+          ></button>
+        </div>
+      </div>
+       )
+   }
 }
 
 export default ColorPicker;
