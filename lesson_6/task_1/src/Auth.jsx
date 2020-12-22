@@ -41,8 +41,8 @@ render() {
       <div>
         // Вариант 3)
         {(this.state.isLoggedIn)
-  ? <Login />
-  : <Logout />}
+  ? <Login onClick={this.handleLogin}/>
+  : <Logout onClick={this.handleLogout}/>}
       </div>
     </div>
   )
