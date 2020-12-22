@@ -4,33 +4,49 @@ import Login from './Login';
 import Logout from './Logout';
 import './index.scss';
 
-class Auth extends React.Component {
-  constructor(props) {
-    super(props);
+// Отрисовывает компроненту Greeting
 
+class Auth extends React.Component {
+  constructor() {
+    super();
     this.state = {
-      isLoggedIn: false,
-    };
+      isLoggedIn: false
+    }
   }
   handleLogin = () => {
     this.setState({
-      isLoggedIn: true,
+      isLoggedIn: true
     })
   }
-
   handleLogout = () => {
     this.setState({
-      isLoggedIn: false,
+      isLoggedIn: false
     })
   }
-  render() {
-    return (
-      <div className="panel">
-        <Greeting/>
-      </div>
-    )
-  }
+render() {
+  //  Вариант 2)
+  // const button = (this.state.isLoggedIn)
+  // ? <button onClick={this.handleLogin}>Login</button>
+  // : <button onClick={this.handleLogout}>Login</button>
 
+  // Вариант 1) let button;
+  // if(this.state.isLoggedIn) {
+  //   button = <button onClick={this.handleLogin}>Login</button>
+  // } else {
+  //   button = <button onClick={this.handleLogout}>Login</button>
+  // }
+  return(
+    <div className="panel">
+      <Greeting isLoggedIn={this.state.isLoggedIn}/>
+      <div>
+        // Вариант 3)
+        {(this.state.isLoggedIn)
+  ? <Login />
+  : <Logout />}
+      </div>
+    </div>
+  )
+}
 }
 
 export default Auth;
