@@ -5,41 +5,35 @@ import Spinner from './Spinner';
 
 
 class Auth extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-          isLoggedIn: true
-        };
-      }
-      handleLogin = () => {
+    state = {
+        isLoggedIn: false,
+        isLoading: false
+      }   
+      loginHandler = () => {
+        this.setState({
+          isLoading: true,
+        });  
+        setTimeout(() => {
+          this.setState({
+            isLoading: false,
+            isLoggedIn: true,
+          });
+        }, 1000)
+      } 
+      logoutHandler = () => {
         this.setState({
           isLoggedIn: false,
-          isSpinner: true,
         })
-      
-      setTimeout(() => {
-        this.setState({
-          isLoggedIn: true,
-          isSpinner: false,
-        });
-      }, 1000)
+      }
+      render() {    
+        
+        if (this.state.isLoading) {
+          return <Spinner size={60} />
+        }
+        if (this.state.isLoggedIn) {
+          return <Logout onLogout={this.logoutHandler} />
+        }
+        return <Login onLogin={this.loginHandler} />;
     }
-
-      handleLogout = () => {
-        this.setState({
-          isLoggedIn: false,
-        })
-      }
-      
-      render() { 
-          if (this.state.isSpinner) {
-              <Spinner size={60}/>
-          }
- if (this.state.isLoggedIn) {
-    <Logout onLogout={this.handleLogout}/>
- }
- <Login onLogin={this.handleLogin}/>
-
-}
 }
 export default Auth;
