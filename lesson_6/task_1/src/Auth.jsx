@@ -7,20 +7,20 @@ import './index.scss';
 // Отрисовывает компроненту Greeting
 
 class Auth extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      isLoggedIn: false
-    }
+      isLoggedIn: false,
+    };
   }
   handleLogin = () => {
     this.setState({
-      isLoggedIn: true
+      isLoggedIn: true,
     })
   }
   handleLogout = () => {
     this.setState({
-      isLoggedIn: false
+      isLoggedIn: false,
     })
   }
 render() {
@@ -38,12 +38,9 @@ render() {
   return(
     <div className="panel">
       <Greeting isLoggedIn={this.state.isLoggedIn}/>
-      <div>
-        // Вариант 3)
         {(this.state.isLoggedIn)
-  ? <Login onClick={this.handleLogin}/>
-  : <Logout onClick={this.handleLogout}/>}
-      </div>
+  ? (<Logout onLogout={this.handleLogout}/>)
+  : (<Login onLogin={this.handleLogin}/>)}
     </div>
   )
 }
