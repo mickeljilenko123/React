@@ -1,13 +1,8 @@
 import React from 'react';
-import Online from './Online';
 import Offline from './Offline';
+import Online from './Online';
 
-const Status = ({ isOnline }) => 
-isOnline ? (<Online />) : (<Offline />);
-
+const Status = ({ isOnline }) => isOnline
+  ? (<Offline />)
+  : (<Online />)
 export default Status;
-   
-
-
-
-
