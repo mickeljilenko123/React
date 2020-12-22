@@ -7,7 +7,9 @@ const text2 = 'Another exciting text.';
 class Page extends Component {
     constructor(props) {
         super(props);
-        this.state = {text: null,}
+        this.state = {
+            text: null,
+        }
     }
 
     setText = text => {
