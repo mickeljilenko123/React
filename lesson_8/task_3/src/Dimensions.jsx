@@ -1,19 +1,16 @@
 import React from 'react';
 
 class Dimensions extends React.Component {
-    constructor(props) {
-        super(props);
-        const { innerWidth, innerHeight } = window;
-        this.state = {
-            width: innerWidth,
-            height: innerHeight
-        }
-        document.title = `${ innerWidth } x ${ innerHeight }`;
+    state = {
+        width: null,
+        height: null
     }
     //В обьекта виндов есть специальное событие которое отвичает
     // за отрисовку измении разшерения экрана
     componentDidMount() {
         window.addEventListener('resize', this.onResize);
+        const { innerWidth, innerHeight } = window;
+        this.setDimensions( innerWidth,  innerHeight);
     }
 
     componentWillUnmount() {
@@ -23,12 +20,15 @@ class Dimensions extends React.Component {
     // Принимает обьект события и из него мы можем достать 
     onResize = event => {
         const { innerWidth, innerHeight } = event.target;
+        this.setDimensions( innerWidth,  innerHeight);
+    };
+    setDimensions = (width, height) => {
         this.setState({
-            width: innerWidth,
-            height: innerHeight
+            width,
+            height
         });
         document.title = `${ innerWidth } x ${ innerHeight }`;
-    };
+    }
 
     render() {
         return(
