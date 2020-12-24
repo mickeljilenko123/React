@@ -33,7 +33,7 @@ class Dimensions extends React.Component {
     render() {
         return(
             <div class="dimensions">
-               { `${this.state.width}px - ${this.state.height}px` }
+               { `${innerWidth}px - ${innerHeight}px` }
                 </div>
         )
     }
