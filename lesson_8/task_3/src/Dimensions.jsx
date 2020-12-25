@@ -1,42 +1,45 @@
-import React from 'react';
+import React from "react";
 
 class Dimensions extends React.Component {
-    state = {
-        width: null,
-        height: null
-    }
-    //В обьекта виндов есть специальное событие которое отвичает
-    // за отрисовку измении разшерения экрана
-    componentDidMount() {
-        window.addEventListener('resize', this.onResize);
-        const { innerWidth, innerHeight } = window;
-        this.setDimensions( innerWidth,  innerHeight);
-    }
+  state = {
+    width: null,
+    height: null,
+  };
 
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.onResize);
-    }
-     
-    // Принимает обьект события и из него мы можем достать 
-    onResize = event => {
-        const { innerWidth, innerHeight } = event.target;
-        this.setDimensions( innerWidth,  innerHeight);
-    };
-    setDimensions = (width, height) => {
-        this.setState({
-            width,
-            height
-        });
-        document.title = `${ innerWidth } x ${ innerHeight }`;
-    }
+  componentDidMount() {
+    window.addEventListener('resize', this.onResize);
 
-    render() {
-        return(
-            <div class="dimensions">
-               { `${innerWidth}px - ${innerHeight}px` }
-                </div>
-        )
-    }
+    const { innerWidth, innerHeight } = window;
+    //установка заголовка по умолчанию
+    this.setDemensions(innerWidth, innerHeight);
+  }
+  //отписка от события
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize);
+  }
+  //после изменения размера обновляем состояние state
+  onResize = (e) => {
+    const { innerWidth, innerHeight } = e.target;
+    this.setDemensions(innerWidth, innerHeight);
+  }
 
+  //чтобы не было дублирования кода
+  setDemensions = (width, height) => {
+    this.setState({
+      width,
+      height,
+    });
+    document.title = `${innerWidth} x ${innerHeight}`;
+  };
+
+
+  render() {
+    return (
+      <div className="dimensions">
+        {`${innerWidth}px - ${innerHeight}px`}
+      </div>
+    )
+  }
 }
+
 export default Dimensions;
