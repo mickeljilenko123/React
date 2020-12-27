@@ -8,10 +8,15 @@ class ConnectionStatus extends React.Component {
         })
     }
     componentDidMount() {
-        window.addEventListener('online || offline', this.onStatusNetwork);
+        window.addEventListener('online', this.onStatusNetwork);
+        window.addEventListener('offline', this.onStatusNetwork);
+
+        
     }
     componentWillUnmount() {
-        window.removeEventListener('online || offline', this.onStatusNetwork);
+        window.removeEventListener('online', this.onStatusNetwork);
+        window.removeEventListener('offline', this.onStatusNetwork);
+
     }
 
     onStatusNetwork = (e) => {
@@ -36,7 +41,7 @@ class ConnectionStatus extends React.Component {
 
 render() {
     const { status } = this.state
-    const current = ('online' || 'offline') ? "status status_offline" : "status";
+    const current = (status !=='online') ? "status status_offline" : "status";
     return(
         <div className={current}>{status}</div>
     )
