@@ -16,7 +16,7 @@ class ConnectionStatus extends React.Component {
 
     onStatusNetwork = (e) => {
         this.setState({
-            status: e.target
+            status: e.type,
         })
     } 
     
@@ -43,3 +43,5 @@ render() {
 }
 }
 export default ConnectionStatus;
+
+
