@@ -17,3 +17,20 @@ const getTimeWithOffset = offset => {
 }
 
 console.log(getTimeWithOffset(2).toLocaleTimeString());
+
+names = "Tror Gvigris Deriana Nori";
+num = 4;
+
+function fourLetters(names, num) {
+    const arr = names.split(" ");
+    let current = 0;
+    const arr1 = arr.map(e => {
+        if (e.length === num) {
+            current += 1;
+        }
+
+    })
+    console.log(current);
+    return arr1;
+};
+fourLetters(names, num);
