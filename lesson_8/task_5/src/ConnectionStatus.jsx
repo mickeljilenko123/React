@@ -1,44 +1,25 @@
-import React from 'react';
+import React, { Component } from "react";
 
-class ConnectionStatus extends React.Component {
-    constructor() {
-        super();
-        this.state({
-         status: online,
-        })
-    }
-    onStatusNetwork = (e) => {
+class ConnectionStatus extends Component {
+    state = {
+        status: "online",
+    };
+
+    newStatus = (e) => {
         this.setState({
             status: e.type,
-        })
-    } 
+        });
+    };
+
     componentDidMount() {
-        window.addEventListener('online', this.onStatusNetwork);
-        window.addEventListener('offline', this.onStatusNetwork);
-
-        
+        window.addEventListener("online", this.newStatus);
+        window.addEventListener("offline", this.newStatus);
     }
+
     componentWillUnmount() {
-        window.removeEventListener('online', this.onStatusNetwork);
-        window.removeEventListener('offline', this.onStatusNetwork);
-
+        window.removeEventListener("online", this.newStatus);
+        window.removeEventListener("offline", this.newStatus);
     }
- 
-    
-
-    // setStatus = (online, offline) => {
-    // if(online) {
-    //     this.setState({
-    //         online,
-    //       });
-    // };
-    // if(offline) {
-    //     this.setState({
-    //         offline,
-    //     })
-    //     document.body.style.backgroundColor = '#f00';
-    // };
-
 
     changeClassName = (status) => `status ${status === "offline" ? "status_offline" : ""}`;
 
