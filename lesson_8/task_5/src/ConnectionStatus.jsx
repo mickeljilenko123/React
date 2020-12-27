@@ -39,14 +39,14 @@ class ConnectionStatus extends React.Component {
     //     document.body.style.backgroundColor = '#f00';
     // };
 
-render() {
-    const { status } = this.state
-    const current = status !=='online' ? "status status_offline" : "status";
-    return(
-        <div className={current}>{status}</div>
-    )
+
+    changeClassName = (status) => `status ${status === "offline" ? "status_offline" : ""}`;
+
+    render() {
+        return <div className={this.changeClassName(this.state.status)}>{this.state.status}</div>;
+    }
 }
-}
+
 export default ConnectionStatus;
 
 
