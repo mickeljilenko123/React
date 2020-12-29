@@ -14,9 +14,14 @@ class UsersList extends React.Component {
       name: value,
     });
   };
-
+   
 
   render() {
+    const usersList = this.props.users
+    .filter((user) =>
+      user.name.includes(this.state.name)
+    )
+    .map((user) => <User {...user} key={user.id} />);
     return (
       <div>
         <Filter
