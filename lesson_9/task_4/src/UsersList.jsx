@@ -19,7 +19,7 @@ class UsersList extends React.Component {
   render() {
     const usersList = this.props.users
     .filter((user) =>
-      user.name.includes(this.state.name)
+      user.name.toLowerCase().includes(this.state.name.toLowerCase())
     )
     .map((user) => <User {...user} key={user.id} />);
     return (
