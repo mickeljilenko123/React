@@ -3,6 +3,7 @@ import Dialog from "./Dialog";
 
 
 class App extends React.Component {
+ 
   state = {
     isOpen: false,
   }
@@ -23,16 +24,13 @@ class App extends React.Component {
 
     return (
       <div className="app">
-        <button className="btn" onClick={this.showDialog}>Show dialog</button>
-        <Dialog
-          isOpen={this.state.isOpen}
-          onClose={this.hideDialog}
-          title="Recommendation">
-          <p>Use immutable array methods to work with data. It will help to avoid bugs</p>
+        <div className="btn" onClick={this.showDialog}>Show</div>
+        <Dialog isOpen = {this.state.isOpen} onClose={this.hideDialog} title = "some_title">
+        <p>some text</p>
         </Dialog>
       </div>
     );
-  }
+}
 }
 
 export default App;
