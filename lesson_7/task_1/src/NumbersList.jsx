@@ -4,7 +4,7 @@ const NumbersList = ({ numbers }) => {
     const numbersList = numbers.map(num => 
         <li key={num}>{num}</li>);
         
-    const e = <ul>{numbersList}</ul>
-    return (e);
+     return (<ul>{numbersList}</ul>)
+     
 }
 export default NumbersList;

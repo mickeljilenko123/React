@@ -1,39 +1,31 @@
-import React from "react"
-import ContactCard from "./ContactCard"
+import React from "react";
+import ThemedButton from "./ThemedButton";
+import { themes, ThemeContext } from "./theme-context";
 
-function App() {
+class App extends React.Component {
+  state = {
+    theme: themes.light,
+  }
+
+  toggleTheme = () => {
+    const newTheme = this.state.theme === themes.dark
+      ? themes.light
+      : themes.dark;
+
+    this.setState({ theme: newTheme });
+  }
+
+  render() {
     return (
-        <div className="contacts">
-            <ContactCard 
-                name="Mr. Whiskerson" 
-                imgUrl="http://placekitten.com/300/200" 
-                phone="(212) 555-1234" 
-                email="mr.whiskaz@catnap.meow"
-            />
-            
-            <ContactCard 
-                name="Fluffykins" 
-                imgUrl="http://placekitten.com/400/200" 
-                phone="(212) 555-2345" 
-                email="fluff@me.com"
-            />
-            
-            <ContactCard 
-                name="Destroyer" 
-                imgUrl="http://placekitten.com/400/300" 
-                phone="(212) 555-3456" 
-                email="ofworlds@yahoo.com"
-            />
-            
-            <ContactCard 
-                name="Felix" 
-                imgUrl="http://placekitten.com/200/100" 
-                phone="(212) 555-4567" 
-                email="thecat@hotmail.com"
-            />
-            
-        </div>
-    )
+      <div>
+        <ThemeContext.Provider value={this.state.theme}>
+
+          <ThemedButton onClick={this.toggleTheme}>Dynamic Theme</ThemedButton>
+        </ThemeContext.Provider>
+        <ThemedButton onClick={this.toggleTheme}>Default Theme</ThemedButton>
+      </div>
+    );
+  }
 }
 
-export default App
+export default App;
