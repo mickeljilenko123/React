@@ -1,53 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
-class User extends React.Component {
 
-  state = {
-     avatar: null,
-     name: null,
-     location: null,
-  }
-  componentDidMount() {
-    this.getUserData(this.props.match.params.userId);
-  }
-  componentDidUpdate(prevProps) {
-    const curUserId = this.props.match.params.userId;
-    if(prevProps.match.params.userId != curUserId) {
-      this.getUserData(curUserId)
-    }
-  }
+const User = () => {
+  const [userData, setUserData] = useState(null);
+  const { userId } = useParams();
 
-  getUserData = userId => {
-     fetch(`https://api.github.com/users/${userId}`)
-     .then(response => response.json())
-     .then(userData => {
-       const {avatar_url, name, location } = userData;
-       this.setState({
-         avatar: null,
-         name: null,
-         location: null,
-       })
-     })
+  useEffect(() => {
+    fetch(`https://api.github.com/users/${userId}`)
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error();
+      })
+      .then(userData => {
+        setUserData(userData);
+      });
+  }, [userId]);
+
+  if (!userData) {
+    return null;
   }
 
-  render() {
-    const { avatar, name, location } = this.state
-    if (!avatar || !name || !location) {
-      return null;
-    }
-    return (
-      <div class="user">
-        <img alt="User Avatar" 
-           src={avatar} 
-           class="user__avatar"
-        />
-        <div class="user__info">
-          <span class="user__name">{name}</span>
-          <span class="user__location">{location}</span>
-        </div>
+  const { name, location, avatar_url } = userData;
+
+  return (
+    <div className="user">
+      <img alt="User Avatar" src={avatar_url} className="user__avatar" />
+      <div className="user__info">
+        <span className="user__name">{name}</span>
+        <span className="user__location">{location}</span>
       </div>
-    );
-  }
+    </div>
+  )
 }
 
 
