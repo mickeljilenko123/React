@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 
-
- 
-
 class SearchBar extends Component{
     state = {
         images: [],
@@ -32,11 +29,11 @@ class SearchBar extends Component{
         }).then(yarema => {
                 this.setState({ images: yarema.hits })
             })
+
         }
-        
-    
 
   render() {
+    
     return (
         <div>
           <header className="Searchbar">
