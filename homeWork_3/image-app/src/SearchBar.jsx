@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+
  
 
 class SearchBar extends Component{
@@ -9,7 +10,6 @@ class SearchBar extends Component{
         apiUrl: 'https://pixabay.com/api',
         apiKey: '21756166-f94825c7e8322ac63fb23a466',
         page: 1,
-
     }
 
     handleChange = event => {
@@ -21,22 +21,22 @@ class SearchBar extends Component{
     handleSubmit = (event) => {
         event.preventDefault();
         this.onCreate(this.state)
-    }
+    };
+
     onCreate = ( { name } ) => {
         fetch(`${this.state.apiUrl}/?key=${this.state.apiKey}&q=${name}&page=${this.state.page}`)
         .then(res => {
             if(res.ok) {
               return res.json();
             }
-        }).then(imageList => {
-                this.setState({ images: imageList })
+        }).then(yarema => {
+                this.setState({ images: yarema.hits })
             })
         }
         
     
 
   render() {
-    console.log(this.state.images);
     return (
         <div>
           <header className="Searchbar">
@@ -57,6 +57,15 @@ class SearchBar extends Component{
               />
             </form>
           </header>
+          <ul className="ImageGallery">
+              {this.state.images.map(image => (
+                  <li className="ImageGalleryItem">
+                       <img src={image.webformatURL} alt="" className="ImageGalleryItem-image" />
+                  </li>
+              ))}
+          </ul>
+         
+             
         </div>
       );
   }  
