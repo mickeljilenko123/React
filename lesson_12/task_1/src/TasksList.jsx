@@ -1,130 +1,77 @@
-import React, { Component } from 'react';
-import Task from './Task';
+import React, { Component } from 'react'
 import CreateTaskInput from './CreateTaskInput';
-
-const baseUrl = "https://crudcrud.com/api/82237dd509164ec1a3eec6c1de59589e/tasks";
+import Task from './Task';
 
 class TasksList extends Component {
     state = {
-        tasks: [],
-    };
-    componentDidUpdate() {
-        this.fetchTasksLit();
+        tasks: [
+            {text: "Buy milk", done: false, id: 1},
+            {text: "Buy bread", done: false, id: 2},
+            {text: "Buy car", done: false, id: 3},
+            {text: "Buy meet", done: true, id: 4},
+            {text: "Buy cigars", done: true, id: 5},
+        ],
     }
-    fetchTasksList = () => {
-// Делаем get запрос Получаем массим всех ел.
-             fetch(baseUrl).then(res => {
-                 if (res.ok) {
-                     return res.json();
-                 }
-             }).then(tasksList => {
-                 const tasks = tasksList.map(({ _id, ...task }) => ({
-                     id: _id,
-                     ...task
-                 }));
-                 this.setState({
-                     tasks,
-                 })
-             })
-
-          }
-    onCreate = (text) => {
-        //Мы достаем наш таскс из состояния
-        const { tasks } = this.state
-      const newTask = {
-          text,
-          done: false,
-          id: Math.random(),
-      } 
-      // Отправляем наши данные на сервер
-      fetch (baseUrl, {
-          method: "POST",
-          headers: {
-              'Content-Type': 'aplication/json;utc-8',
-          },
-          body: JSON.stringify(newTask),
-      })
-      // Проверяем успешно или не успешно они записались на сервер
-      .then(response => {
-          if (response.ok) {
-              this.fetchTasksList();
-          } else {
-            throw new Error ('Failed to created task') 
-          }
-      });
-      const updatedTasks = tasks.concat(newTask);
-      this.setState({tasks: updatedTasks});
-    }
-    handleTaskStatusChange = (id) => {
-        // 1. Найти задачу в списке
-        // 2. Переключить значение
-        // 3. Сохранить изменения в листе
-        // 4. Запросить обновленный список задач
-
-
-        const { done, text } = this.state.tasks.find(task => task.id === id);
-        const updatedTask = {
+    
+    onCreate = text => {
+        const { tasks } = this.state;
+        const newTask = {
+            id: Math.random(),
             text,
-            done: !done
+            done: false,
         }
-        fetch (`${baseUrl}/${id}`, {
-            method: "PUT",
-            headers: {
-                'Content-Type': 'aplication/json;utc-8',
-            },
-            body: JSON.stringify(updatedTask),
+        const updatedTasks = tasks.concat(newTask);
+        this.setState({
+            tasks: updatedTasks
         })
-        // Проверяем успешно или не успешно они записались на сервер
-        .then(response => {
-            if (response.ok) {
-                this.fetchTasksList();
-            } else {
-              throw new Error ('Failed to created task') 
+    }
+
+    handleTaskStatusChange = (id) => {
+        //1. Find task in a list
+        //2. Toggle done value
+        //3. Save updated list
+
+        const updatedTasks = this.state.tasks.map(task => {
+            if (task.id === id) {
+                return {
+                    ...task,
+                    done: !task.done
+                };
             }
+            return task;
         });
-        
-        
-        // {
-        //     if (task.id === id) {
-        //         return {
-        //             ...task,
-        //             done: !task.done
-        //         };
-        //     }
-        //     return task;
-        // })
-        // this.setState({tasks: updatedTasks});
+        this.setState({ tasks:  updatedTasks })
     }
     handleTaskDelete = (id) => {
-        // 1. Filter tasks
-        // 2. updates state
-        fetch(`${baseUrl}/${id}`, {
-            method: "DELETE"
-        }).then(response => {
-            if (response.ok) {
-                this.fetchTasksLit();
-            } else {
-              throw new Error ('Failed to created task') 
-            }
-        })
+         const filterTask = this.state.tasks
+         .filter(task => task.id !== id);
+         this.setState({ tasks:  filterTask });
     }
+    
+
     render() {
         const sortedList = this.state.tasks
         .slice()
-        .sort((a, b) => a.done - b.done );
+        .sort((a, b) => a.done - b.done);
         return (
             <div className="todo-list">
-                <CreateTaskInput onCreate = {this.onCreate}/>
-               <ul className="list">
-                  {sortedList.map(task => (
-                      <Task key ={task.id} {...task}
-                      onChange={this.handleTaskStatusChange}
-                      onDelete = {this.handleTaskDelete}
-                      />
-                    ))}             
-                </ul>
+                <CreateTaskInput onCreate={this.onCreate}/>
+                <ul className="list">
+                {sortedList.map(task => (
+                    <Task key={task.id}
+                    //   id={task.id}
+                    //   text={task.text}
+                    //   done={task.done}
+                    { ...task }
+                    onDelete={this.handleTaskDelete}
+                    onChange={this.handleTaskStatusChange}
+                    />
+                ))}
+            </ul>
             </div>
-        );
+        )
     }
+    
 }
-export default TasksList;
+
+export default TasksList

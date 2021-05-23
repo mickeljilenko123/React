@@ -1,12 +1,13 @@
-import React from 'react';
+import React from 'react'
 import TasksList from './TasksList';
 
-const TodoList = () => {
-   return(
-       <>
-       <h1 className="title">Todo List</h1>
-       <TasksList />
-       </>
-   )
+function TodoList() {
+    return (
+        <div>
+            <h1 className="title">Todo List</h1>
+            <TasksList />
+        </div>
+    )
 }
-export default TodoList;
+
+export default TodoList

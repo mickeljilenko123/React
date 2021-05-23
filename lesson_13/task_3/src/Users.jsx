@@ -1,12 +1,11 @@
-import React from "react";
-import User from "./User";
-import { Link, Route, Switch } from 'react-router-dom';
+import React from 'react';
+import { Route, Switch, Link } from 'react-router-dom';
+import User from './User.jsx';
 
 
 const Users = ({ match }) => {
-
-    return (
-      <div className="page__content">
+       return (
+        <div className="page__content">
         <h1>Users</h1>
         <ul className="navigation">
           <li className="navigation__item">
@@ -17,13 +16,9 @@ const Users = ({ match }) => {
           </li>
         </ul>
         <Switch>
-          <Route exact path={match.path} >
-            <span>Select a user please</span>
-          </Route>
-          <Route exact path={`${match.path}/:userId`} component={User}></Route>
+            <Route path={`${match.path}/:userId`}  component={User} ></Route>
         </Switch>
-      </div>
-    )
-  }
-
+        </div>
+)
+}
 export default Users;
