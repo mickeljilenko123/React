@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import CreateTaskInput from './CreateTaskInput';
 import Task from './Task';
 
-const baseUrl = "https://crudcrud.com/api/980d1bd0aa114a8d89d8a4b17df8ecf4/tasks";
+const baseUrl = "https://crudcrud.com/api/f944e2c060994c818155bdf5caa31974/tasks";
 
 class TasksList extends Component {
     state = {
@@ -17,8 +17,12 @@ class TasksList extends Component {
                 return res.json();
             }
         }).then(tasksList => {
+            const tasks = tasksList.map(({ _id, ...task }) => ({
+                id: _id,
+                ...task
+            }))
              this.setState({
-                tasks: tasksList
+                tasks
              })
         })
     }
@@ -27,9 +31,9 @@ class TasksList extends Component {
         // + 1. Create task object
         //2. Post object to server
         //3. Fetch list from server
-         const { tasks } = this.state;
+        // const { tasks } = this.state;
         const newTask = {
-            id: Math.random(),
+            
             text,
             done: false,
         };
@@ -49,10 +53,10 @@ class TasksList extends Component {
             
         })
 
-        const updatedTasks = tasks.concat(newTask);
-        this.setState({
-            tasks: updatedTasks
-        })
+        // const updatedTasks = tasks.concat(newTask);
+        // this.setState({
+        //     tasks: updatedTasks
+        // })
     }
 
     handleTaskStatusChange = (id) => {
