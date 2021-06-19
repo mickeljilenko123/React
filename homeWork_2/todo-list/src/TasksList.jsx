@@ -12,13 +12,11 @@ class TasksList extends Component {
     componentDidMount() {
         this.fetchTasks();
     }
-    fetchTasks = () => {
-        fetchTasksList()
+    fetchTasks = () => fetchTasksList()
         .then(tasksList => 
              this.setState({
                 tasks: tasksList,
              }));
-    };
     
     onCreate = text => {
         const newTask = {
