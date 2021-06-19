@@ -1,91 +1,48 @@
 import React, { Component } from 'react'
 import CreateTaskInput from './CreateTaskInput';
 import Task from './Task';
+import { createTask, updateTask, fetchTasksList, deleteTask } from './tasksGateway';
 
-const baseUrl = "https://crudcrud.com/api/f944e2c060994c818155bdf5caa31974/tasks";
+
 
 class TasksList extends Component {
     state = {
         tasks: [],
     }
     componentDidMount() {
-        this.fetchTasksList();
+        this.fetchTasks();
     }
-    fetchTasksList = () => {
-        fetch(baseUrl).then(res => {
-            if(res.ok) {
-                return res.json();
-            }
-        }).then(tasksList => {
-            const tasks = tasksList.map(({ _id, ...task }) => ({
-                id: _id,
-                ...task
-            }))
+    fetchTasks = () => {
+        fetchTasksList()
+        .then(tasksList => 
              this.setState({
-                tasks
-             })
-        })
-    }
+                tasks: tasksList,
+             }));
+    };
     
     onCreate = text => {
-        // + 1. Create task object
-        //2. Post object to server
-        //3. Fetch list from server
-        // const { tasks } = this.state;
         const newTask = {
-            
             text,
             done: false,
         };
-
-        fetch(baseUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;utc-8'
-            },
-            body: JSON.stringify(newTask),
-        }).then(response => {
-            if (response.ok) {
-                this.fetchTasksList()
-            } else {
-                throw new Error('Failed to create task');
-            }
-            
-        })
-
-        // const updatedTasks = tasks.concat(newTask);
-        // this.setState({
-        //     tasks: updatedTasks
-        // })
-    }
+        createTask(newTask)
+        .then(() => this.fetchTasks())
+    };
 
     handleTaskStatusChange = (id) => {
-        //1. Find task in a list
-        //2. Toggle done value
-        //3. Save updated list
-
-        const updatedTasks = this.state.tasks.map(task => {
-            if (task.id === id) {
-                return {
-                    ...task,
-                    done: !task.done
-                };
-            }
-            return task;
-        });
-        this.setState({ tasks:  updatedTasks })
+        const { done, text } = this.state.tasks
+        .find(task => task.id === id)
+            const updatedTask = {
+                text,
+                done: !done
+            };
+        updateTask(id, updatedTask)    
+        .then(() => this.fetchTasks())     
     }
 
     handleTaskDelete = (id) => {
-         fetch(`${baseUrl}/${id}`, {
-             method: 'DELETE' 
-         }).then(response => {
-             if(response.ok) {
-                 this.fetchTasksList();
-             } else {
-                throw new Error('Failed to delete task');
-             }
-         })
+        deleteTask(id)
+        .then(() => this.fetchTasks()) 
     }
     
 
