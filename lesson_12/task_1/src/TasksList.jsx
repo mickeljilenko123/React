@@ -34,20 +34,20 @@ class TasksList extends Component {
             done: false,
         };
 
-        fetch(baseUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;utc-8'
-            },
-            body: JSON.stringify(newTask),
-        }).then(response => {
-            if (response.ok) {
-                this.fetchTasksList()
-            } else {
-                throw new Error('Failed to create task');
-            }
+        // fetch(baseUrl, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json;utc-8'
+        //     },
+        //     body: JSON.stringify(newTask),
+        // }).then(response => {
+        //     if (response.ok) {
+        //         this.fetchTasksList()
+        //     } else {
+        //         throw new Error('Failed to create task');
+        //     }
             
-        })
+        // })
 
         const updatedTasks = tasks.concat(newTask);
         this.setState({

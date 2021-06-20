@@ -17,20 +17,6 @@ class App extends Component {
    
    onCreate = ({ name, number }) => {
       const { contacts } = this.state;
-      if (contacts
-         .find(contact => 
-            contact.name.toLocaleLowerCase() === name.toLocaleLowerCase()))
-            {
-               alert("Sorry");
-            } else {
-               const newContact = {
-                  id: Math.random(),
-                  name,
-                  number,
-               }
-               const updateContacts = contacts.concat(newContact);
-              this.setState({ contacts:  updateContacts })
-      }
       
                 
    }
