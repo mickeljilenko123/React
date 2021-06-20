@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import ContactsFilter from './ContactsFilter';
 import CreateContactForm from './CreateContactForm';
 import Contact from './Contact';
+import { createContact, fetchContactsList, deleteContact } from './contactsGateway';
 
-const baseUrl = 'https://crudcrud.com/api/1dda8a0fb7904ffb99c78763d76ec3de/contacts';
 
 class PhonesList extends Component {
     state = {
@@ -11,31 +11,19 @@ class PhonesList extends Component {
        filter: '',
     }
 
+
     componentDidMount() {
-        this.fetchContactsList();
+        this.fetchContacts();
     }
     
-    fetchContactsList = () => {
-        fetch(baseUrl).then(res => {
-            if(res.ok) {
-                return res.json();
-            }
-        }).then(contactsList => {
-             const contacts = contactsList.map(({ _id, ...contacts }) => ({
-                 id: _id,
-                 ...contacts, 
-             }))
-             this.setState({
-                contacts
-             })
-        })
-    }
+    fetchContacts = () => 
+    fetchContactsList()
+    .then(contactsList => 
+         this.setState({
+            contacts: contactsList,
+         }));
 
     onCreate = ({ name, number }) => {
-        
-        //1. Create new Object
-        //2. Add name and number from object
-        //3. Concats
         const { contacts } = this.state;
         if (contacts.find(contact => 
             contact.name.toLowerCase() === name.toLowerCase())){
@@ -44,37 +32,19 @@ class PhonesList extends Component {
                const newContact = {
                   name,
                   number,
-               }
+               };
 
-               fetch(baseUrl, {
-                   method: "POST",
-                   headers: {
-                    'Content-Type': 'application/json;utc-8'
-                   },
-                   body: JSON.stringify(newContact)
-               }).then(response => {
-                   if(response.ok) {
-                       this.fetchContactsList();
-                   } else {
-                    throw new Error('Failed to delete task');
-                 }
-               })
-
-            //    const updateContacts = contacts.concat(newContact);
-            //   this.setState({ contacts:  updateContacts })
+               createContact(newContact)
+               .then(() => fetchContactsList());
       }
      }
+
      handleDelete = (id) => {
-        fetch(`${baseUrl}/${id}`, {
-            method: 'DELETE' 
-        }).then(response => {
-            if(response.ok) {
-                this.fetchContactsList();
-            } else {
-               throw new Error('Failed to delete task');
-            }
-        })
+        deleteContact(id)
+        .then(() => this.fetchContacts())
      }
+
+
      handleChangeFilter = event => {
          event.preventDefault();
         this.setState({
