@@ -31,13 +31,13 @@ class PhonesList extends Component {
                   number,
                }
 
-               fetch(baseUrl, {
-                   method: "POST",
-                   headers: {
-                    'Content-Type': 'application/json;utc-8'
-                   },
-                   body: JSON.stringify(newContact)
-               }).then(response => )
+            //    fetch(baseUrl, {
+            //        method: "POST",
+            //        headers: {
+            //         'Content-Type': 'application/json;utc-8'
+            //        },
+            //        body: JSON.stringify(newContact)
+            //    }).then(response => )
 
                const updateContacts = contacts.concat(newContact);
               this.setState({ contacts:  updateContacts })
