@@ -3,18 +3,34 @@ import ContactsFilter from './ContactsFilter';
 import CreateContactForm from './CreateContactForm';
 import Contact from './Contact';
 
-const baseUrl = "https://crudcrud.com/api/980d1bd0aa114a8d89d8a4b17df8ecf4/contacts";
+const baseUrl = 'https://crudcrud.com/api/1dda8a0fb7904ffb99c78763d76ec3de/contacts';
 
 class PhonesList extends Component {
     state = {
-       contacts: [
-        {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-        {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-        {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-        {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
-       ],
+       contacts: [],
        filter: '',
     }
+
+    componentDidMount() {
+        this.fetchContactsList();
+    }
+    
+    fetchContactsList = () => {
+        fetch(baseUrl).then(res => {
+            if(res.ok) {
+                return res.json();
+            }
+        }).then(contactsList => {
+             const contacts = contactsList.map(({ _id, ...contacts }) => ({
+                 id: _id,
+                 ...contacts, 
+             }))
+             this.setState({
+                contacts
+             })
+        })
+    }
+
     onCreate = ({ name, number }) => {
         
         //1. Create new Object
@@ -26,30 +42,38 @@ class PhonesList extends Component {
                alert(`${name} is already in contacts.`);
             } else {
                const newContact = {
-                  id: Math.random(),
                   name,
                   number,
                }
 
-            //    fetch(baseUrl, {
-            //        method: "POST",
-            //        headers: {
-            //         'Content-Type': 'application/json;utc-8'
-            //        },
-            //        body: JSON.stringify(newContact)
-            //    }).then(response => )
+               fetch(baseUrl, {
+                   method: "POST",
+                   headers: {
+                    'Content-Type': 'application/json;utc-8'
+                   },
+                   body: JSON.stringify(newContact)
+               }).then(response => {
+                   if(response.ok) {
+                       this.fetchContactsList();
+                   } else {
+                    throw new Error('Failed to delete task');
+                 }
+               })
 
-               const updateContacts = contacts.concat(newContact);
-              this.setState({ contacts:  updateContacts })
+            //    const updateContacts = contacts.concat(newContact);
+            //   this.setState({ contacts:  updateContacts })
       }
      }
      handleDelete = (id) => {
-        const { contacts } = this.state;
-        const updatedContacts = contacts.filter(contact => 
-            contact.id !== id);
-        this.setState({
-            contacts: updatedContacts
-        })    
+        fetch(`${baseUrl}/${id}`, {
+            method: 'DELETE' 
+        }).then(response => {
+            if(response.ok) {
+                this.fetchContactsList();
+            } else {
+               throw new Error('Failed to delete task');
+            }
+        })
      }
      handleChangeFilter = event => {
          event.preventDefault();
